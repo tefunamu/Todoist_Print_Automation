@@ -51,7 +51,6 @@ This code was originally written for my personal use. As a result, it's only bee
 In particular, the code has only been tested:
 - With a Windows machine
 - With a valid installation of Microsoft Word (text formatting unfortunately relies on Microsoft word - I'd love to find a way to remove it as a dependency)
-- I have only tested printing with the Epson TM-T20III ([Amazon link](https://www.amazon.com/gp/product/B07YLSTMCX/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1), not an affiliate link)
 - The receipt printer must be configured as your default printer
 
 It may be possible to run this code on a non-Windows machine, since Powershell is available for those platforms, but I have not tested this. You would also need to find your own way to print automatically, as Task Scheduler is exclusive to Windows.
