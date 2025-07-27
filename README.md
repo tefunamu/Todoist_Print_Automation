@@ -1,3 +1,8 @@
+# Introduction
+This repository contains my personal commits for managing morning tasks.
+It is based on the repository at https://github.com/ChristianMay21/todo-print-automation.
+In my setup, I reference the EPSON TM‑T88VI.
+
 # Todoist Print Automation for Receipt Printers
 
 This repository contains some scripts that allow you to pull tasks from Todoist and print them out on a receipt printer.
