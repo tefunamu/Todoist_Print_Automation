@@ -6,9 +6,13 @@ import path from "path";
 
 async function fetchAndPrintTodoList() {
   // Read and parse the config
-  const config = JSON.parse(
-    await readFile(new URL("./config.json", import.meta.url))
-  );
+  const configRaw = await readFile(new URL("./config.json", import.meta.url), "utf8");
+  const cleaned = configRaw.replace(/^\uFEFF/, "").trim(); 
+
+  const config = JSON.parse(cleaned);
+  //const config = JSON.parse(
+  //const config = await readFile(new URL("./config.json", import.meta.url), "utf8");
+  //);
 
   const api = new TodoistApi(config["todoist-api-token"]);
 
