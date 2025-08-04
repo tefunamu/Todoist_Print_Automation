@@ -84,6 +84,112 @@ In order to do this, you will need to follow the following steps:
 14. To test running the task manually, you can find it in Task Scheduler, click on it, and click "Run" in the right sidebar, assuming that you checked "Allow task to be run on demand" in step 12.
 15. If you have any issues with this setup, please feel free to reach out to me on Github or on Reddit at u/ChristianMay21, but please understand that it may take me a while to get back to you.
 
+## Network Printing Support
+
+This system now supports both USB and network printing modes. You can easily switch between them using configuration files.
+
+### Overview
+
+The system supports both USB port and network (router-based) printing modes. You can easily switch between them using configuration files.
+
+### Configuration
+
+#### Example config.json
+
+```json
+{
+  "todoist-api-token": "YOUR_API_TOKEN",
+  "hour-difference-from-UTC": 9,
+  "printer": {
+    "mode": "network",
+    "network": {
+      "ip": "192.168.0.8",
+      "port": 9100,
+      "timeout": 5000
+    },
+    "usb": {
+      "printerName": "EPSON TM-T88VI Receipt"
+    }
+  }
+}
+```
+
+#### Configuration Parameters
+
+- **mode**: `"network"` or `"usb"`
+- **network.ip**: Printer IP address
+- **network.port**: Printer port number (usually 9100)
+- **network.timeout**: Connection timeout (milliseconds)
+- **usb.printerName**: USB printer name
+
+### Usage
+
+#### 1. Switch to Network Printing Mode
+
+```bash
+npm run switch-network
+```
+
+#### 2. Switch to USB Printing Mode
+
+```bash
+npm run switch-usb
+```
+
+#### 3. Test Network Printer Connection
+
+```bash
+npm run test-network
+```
+
+#### 4. Run Application
+
+```bash
+npm start
+```
+
+### Printer Setup
+
+#### Network Printer Configuration
+
+1. **IP Address Setup**: Configure printer to 192.168.0.8
+2. **Enable DHCP**: Automatically obtain IP address from router
+3. **Port Configuration**: Usually use port 9100
+
+#### Fallback Functionality
+
+If network printing fails, it automatically falls back to USB printing mode.
+
+### Troubleshooting
+
+#### Connection Errors
+
+1. Verify printer IP address
+2. Check network cable connection
+3. Verify firewall settings
+4. Run `npm run test-network` for connection test
+
+#### Printing Issues
+
+1. Check printer power
+2. Verify paper supply
+3. Check printer status
+
+### Technical Specifications
+
+#### Network Printing Mechanism
+
+- Uses TCP/IP connection
+- Communicates with printer on port 9100
+- Sends data in plain text format
+- UTF-8 encoding support
+
+#### Security
+
+- Communication within local network
+- No authentication (for local environment use)
+- Firewall port restrictions recommended
+
 ## Potential improvements
 I would love to make this software usable by as many people as possible - that means making it:
 - Stable

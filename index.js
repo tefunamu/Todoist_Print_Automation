@@ -5,10 +5,20 @@ import { spawn } from "child_process";
 import path from "path";
 
 async function fetchAndPrintTodoList() {
+  const configRaw = await readFile(new URL("./config.json", import.meta.url), "utf8");
+  const cleaned = configRaw.replace(/^\uFEFF/, "").trim(); 
+
+  const config = JSON.parse(cleaned);
+  // 先頭の文字コードを調査（バイナリで表示）
+//console.log("=== configRaw (char codes) ===");
+//console.log([...configRaw].map(c => c.charCodeAt(0)));
+//console.log("=== end ===");
+
   // Read and parse the config
-  const config = JSON.parse(
-    await readFile(new URL("./config.json", import.meta.url))
-  );
+  //const config = JSON.parse(
+  //  await readFile(new URL("./config.json", import.meta.url), "utf8")
+  //);
+
 
   const api = new TodoistApi(config["todoist-api-token"]);
 
@@ -131,6 +141,9 @@ async function fetchAndPrintTodoList() {
   api
     .getTasks()
     .then((tasks) => {
+      console.log("=== 取得した tasks ===");
+      console.log(tasks);
+      console.log("=== end ===");
       // This variable contains all tasks that should be included in the todo list printout
       let includedTasks = tasks.filter(includeTask).sort(sortByTime);
 
@@ -172,7 +185,13 @@ async function fetchAndPrintTodoList() {
         }
       );
     })
-    .catch((error) => console.log(error));
+    .catch((error) =>{
+      console.error("Todoist APIエラー:");
+      console.error(error);
+      console.error("=== end ===");
+
+    });
+    //console.log(error));
 }
 
 // Actually invoke all of the functionality defined above
